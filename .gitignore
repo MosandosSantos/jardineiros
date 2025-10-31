@@ -1,0 +1,51 @@
+nul
+# --- Dependências ---
+node_modules/
+
+# --- Logs ---
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Variáveis de ambiente ---
+.env
+.env.*.local
+
+# --- Builds & caches ---
+dist/
+build/
+.out/
+.next/
+out/
+.cache/
+.parcel-cache/
+.turbo/
+.vite/
+coverage/
+.eslintcache
+.stylelintcache
+*.css.map
+
+# --- Editores & SO ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*~
+.AppleDouble
+.LSOverride
+
+# --- Plataformas de hospedagem ---
+.vercel/
+.netlify/
+
+# --- Tailwind ---
+# Se o Tailwind gerar CSS dentro de /dist ou /build, já está coberto acima.
+# Se você gera um output.css na raiz e QUER ignorá-lo, descomente a linha abaixo:
+# /output.css

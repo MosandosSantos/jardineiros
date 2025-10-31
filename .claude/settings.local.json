@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node test_carousel.js:*)",
+      "Bash(npm install:*)",
+      "Bash(npx playwright install chromium)",
+      "Bash(python -m http.server:*)",
+      "Bash(node test_image_fix.js:*)",
+      "Bash(node test_gallery.js:*)",
+      "WebSearch",
+      "WebFetch(domain:www.hostgator.com)",
+      "Bash(node test_contact_form.js:*)",
+      "Bash(node test_form_overlap.js:*)",
+      "Bash(node test_visual_simple.js:*)",
+      "Bash(node test-carousel.js:*)",
+      "Bash(dir \"C:\\Users\\mosan\\Documents\\Sistemas\\jardineiros2026\\carousel-screenshots\" /b)",
+      "Bash(dir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

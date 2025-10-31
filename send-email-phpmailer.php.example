@@ -1,0 +1,214 @@
+<?php
+/**
+ * ALTERNATIVA COM PHPMAILER E SMTP
+ *
+ * Use este arquivo se preferir usar SMTP ao invés da função mail() nativa
+ *
+ * INSTRUÇÕES:
+ * 1. Baixe PHPMailer: https://github.com/PHPMailer/PHPMailer/releases
+ * 2. Extraia a pasta PHPMailer na raiz do seu site
+ * 3. Configure as credenciais SMTP abaixo
+ * 4. Renomeie este arquivo para send-email.php
+ */
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Configurações de segurança
+header('Content-Type: application/json');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('X-XSS-Protection: 1; mode=block');
+
+// Verificar se é uma requisição POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Método não permitido']);
+    exit;
+}
+
+// Função para sanitizar entrada
+function sanitize_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+    return $data;
+}
+
+// Validar e sanitizar dados do formulário
+$nome = isset($_POST['nome']) ? sanitize_input($_POST['nome']) : '';
+$email = isset($_POST['email']) ? sanitize_input($_POST['email']) : '';
+$celular = isset($_POST['celular']) ? sanitize_input($_POST['celular']) : '';
+$assunto = isset($_POST['assunto']) ? sanitize_input($_POST['assunto']) : '';
+$mensagem = isset($_POST['mensagem']) ? sanitize_input($_POST['mensagem']) : '';
+
+// Validações
+$errors = [];
+
+if (empty($nome) || strlen($nome) < 3) {
+    $errors[] = 'Nome deve ter pelo menos 3 caracteres';
+}
+
+if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors[] = 'Email inválido';
+}
+
+if (empty($celular) || strlen($celular) < 10) {
+    $errors[] = 'Celular inválido';
+}
+
+if (empty($assunto) || strlen($assunto) < 5) {
+    $errors[] = 'Assunto deve ter pelo menos 5 caracteres';
+}
+
+if (empty($mensagem) || strlen($mensagem) < 10) {
+    $errors[] = 'Mensagem deve ter pelo menos 10 caracteres';
+}
+
+// Se houver erros, retornar
+if (!empty($errors)) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => implode(', ', $errors)]);
+    exit;
+}
+
+try {
+    // Criar instância do PHPMailer
+    $mail = new PHPMailer(true);
+
+    // ========================================
+    // CONFIGURAÇÕES SMTP - HOSTGATOR
+    // ========================================
+
+    // Habilitar modo debug (comentar em produção)
+    // $mail->SMTPDebug = 2; // 0 = off, 1 = client messages, 2 = client and server messages
+
+    $mail->isSMTP();
+    $mail->Host = 'mail.jardineiros.org'; // ou use: gator4xxx.hostgator.com.br
+    $mail->SMTPAuth = true;
+    $mail->Username = 'secretaria@jardineiros.org'; // ⚠️ ALTERE AQUI
+    $mail->Password = 'SUA_SENHA_AQUI'; // ⚠️ ALTERE AQUI
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL
+    $mail->Port = 465; // 465 para SSL, 587 para TLS
+    $mail->CharSet = 'UTF-8';
+
+    // Alternativa TLS (comente o bloco acima e descomente este se preferir TLS):
+    // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    // $mail->Port = 587;
+
+    // ========================================
+    // CONFIGURAÇÕES DO EMAIL
+    // ========================================
+
+    // Remetente (use um email do seu domínio)
+    $mail->setFrom('secretaria@jardineiros.org', 'GLJL - Site');
+
+    // Destinatário
+    $mail->addAddress('secretaria@jardineiros.org', 'Secretaria GLJL');
+
+    // Responder para (email do visitante)
+    $mail->addReplyTo($email, $nome);
+
+    // Assunto
+    $mail->Subject = 'Contato Site GLJL - ' . $assunto;
+
+    // Conteúdo do email
+    $mail->isHTML(true);
+
+    // Corpo do email em HTML
+    $mail->Body = "
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset='UTF-8'>
+        <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background-color: #14532d; color: #fff; padding: 20px; text-align: center; }
+            .content { background-color: #f9f9f9; padding: 20px; border: 1px solid #ddd; }
+            .field { margin-bottom: 15px; }
+            .label { font-weight: bold; color: #14532d; }
+            .value { margin-top: 5px; }
+            .footer { text-align: center; padding: 15px; font-size: 12px; color: #666; }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='header'>
+                <h2>Nova Mensagem - Site GLJL</h2>
+            </div>
+            <div class='content'>
+                <div class='field'>
+                    <div class='label'>Nome:</div>
+                    <div class='value'>{$nome}</div>
+                </div>
+                <div class='field'>
+                    <div class='label'>Email:</div>
+                    <div class='value'>{$email}</div>
+                </div>
+                <div class='field'>
+                    <div class='label'>Celular:</div>
+                    <div class='value'>{$celular}</div>
+                </div>
+                <div class='field'>
+                    <div class='label'>Assunto:</div>
+                    <div class='value'>{$assunto}</div>
+                </div>
+                <div class='field'>
+                    <div class='label'>Mensagem:</div>
+                    <div class='value'>" . nl2br($mensagem) . "</div>
+                </div>
+            </div>
+            <div class='footer'>
+                <p>Esta mensagem foi enviada através do formulário de contato do site Grande Loja de Jardineiros Livres do Brasil</p>
+                <p>Data: " . date('d/m/Y H:i:s') . "</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    ";
+
+    // Versão em texto puro (fallback)
+    $mail->AltBody = "
+Nova Mensagem do Site GLJL
+
+Nome: {$nome}
+Email: {$email}
+Celular: {$celular}
+Assunto: {$assunto}
+
+Mensagem:
+{$mensagem}
+
+---
+Data: " . date('d/m/Y H:i:s');
+
+    // Enviar email
+    $mail->send();
+
+    // Sucesso
+    echo json_encode([
+        'success' => true,
+        'message' => 'Mensagem enviada com sucesso! Entraremos em contato em breve.'
+    ]);
+
+} catch (Exception $e) {
+    // Erro ao enviar
+    http_response_code(500);
+
+    // Em produção, não mostre detalhes do erro
+    $errorMessage = 'Erro ao enviar mensagem. Por favor, tente novamente mais tarde.';
+
+    // Em desenvolvimento, você pode descomentar a linha abaixo para ver o erro:
+    // $errorMessage .= ' Debug: ' . $mail->ErrorInfo;
+
+    echo json_encode([
+        'success' => false,
+        'message' => $errorMessage
+    ]);
+}
+?>

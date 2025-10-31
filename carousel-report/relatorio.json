@@ -1,0 +1,208 @@
+{
+  "totalSlides": 7,
+  "cardsInDOM": [
+    {
+      "index": 1,
+      "loja": "Loja - 01",
+      "nome": "Pau Brasil",
+      "cidade": "Rio de Janeiro",
+      "img": "file:///C:/Users/mosan/Documents/Sistemas/jardineiros2026/assets/img/cart-1.png",
+      "classes": [
+        "swiper-slide",
+        "swiper-slide-prev"
+      ],
+      "isActive": false,
+      "isVisible": false,
+      "isNext": false,
+      "isPrev": true
+    },
+    {
+      "index": 2,
+      "loja": "Loja - 02",
+      "nome": "Acassia",
+      "cidade": "Espírito Santo",
+      "img": "file:///C:/Users/mosan/Documents/Sistemas/jardineiros2026/assets/img/cart-2.png",
+      "classes": [
+        "swiper-slide",
+        "swiper-slide-active"
+      ],
+      "isActive": true,
+      "isVisible": false,
+      "isNext": false,
+      "isPrev": false
+    },
+    {
+      "index": 3,
+      "loja": "Loja 03",
+      "nome": "Arueira",
+      "cidade": "Paraná",
+      "img": "file:///C:/Users/mosan/Documents/Sistemas/jardineiros2026/assets/img/cart-3.png",
+      "classes": [
+        "swiper-slide",
+        "swiper-slide-next"
+      ],
+      "isActive": false,
+      "isVisible": false,
+      "isNext": true,
+      "isPrev": false
+    },
+    {
+      "index": 4,
+      "loja": "Loja 04",
+      "nome": "Vitória Régia",
+      "cidade": "Pará",
+      "img": "file:///C:/Users/mosan/Documents/Sistemas/jardineiros2026/assets/img/cart-4.png",
+      "classes": [
+        "swiper-slide"
+      ],
+      "isActive": false,
+      "isVisible": false,
+      "isNext": false,
+      "isPrev": false
+    },
+    {
+      "index": 5,
+      "loja": "Loja 05",
+      "nome": "Seringueira",
+      "cidade": "Rondônia",
+      "img": "file:///C:/Users/mosan/Documents/Sistemas/jardineiros2026/assets/img/cart-5.png",
+      "classes": [
+        "swiper-slide"
+      ],
+      "isActive": false,
+      "isVisible": false,
+      "isNext": false,
+      "isPrev": false
+    },
+    {
+      "index": 6,
+      "loja": "Loja - 07",
+      "nome": "Ipê",
+      "cidade": "Brasília",
+      "img": "file:///C:/Users/mosan/Documents/Sistemas/jardineiros2026/assets/img/cart-5.png",
+      "classes": [
+        "swiper-slide"
+      ],
+      "isActive": false,
+      "isVisible": false,
+      "isNext": false,
+      "isPrev": false
+    },
+    {
+      "index": 7,
+      "loja": "Loja - 08",
+      "nome": "Amapazeiro",
+      "cidade": "Amapá",
+      "img": "file:///C:/Users/mosan/Documents/Sistemas/jardineiros2026/assets/img/cart-7.png",
+      "classes": [
+        "swiper-slide"
+      ],
+      "isActive": false,
+      "isVisible": false,
+      "isNext": false,
+      "isPrev": false
+    }
+  ],
+  "navigationSteps": [
+    {
+      "step": 0,
+      "action": "Estado inicial",
+      "visibleCards": [
+        "Acassia"
+      ],
+      "screenshot": "carousel_step_0_initial.png"
+    },
+    {
+      "step": 1,
+      "action": "Click Next #1",
+      "visibleCards": [
+        "Arueira"
+      ],
+      "screenshot": "carousel_step_1.png"
+    },
+    {
+      "step": 2,
+      "action": "Click Next #2",
+      "visibleCards": [
+        "Vitória Régia"
+      ],
+      "screenshot": "carousel_step_2.png"
+    },
+    {
+      "step": 3,
+      "action": "Click Next #3",
+      "visibleCards": [
+        "Seringueira"
+      ],
+      "screenshot": "carousel_step_3.png"
+    },
+    {
+      "step": 4,
+      "action": "Click Next #4",
+      "visibleCards": [
+        "Seringueira"
+      ],
+      "screenshot": "carousel_step_4.png"
+    },
+    {
+      "step": 5,
+      "action": "Click Next #5",
+      "visibleCards": [
+        "Pau Brasil"
+      ],
+      "screenshot": "carousel_step_5.png"
+    },
+    {
+      "step": 6,
+      "action": "Click Next #6",
+      "visibleCards": [
+        "Amapazeiro"
+      ],
+      "screenshot": "carousel_step_6.png"
+    },
+    {
+      "step": 7,
+      "action": "Click Next #7",
+      "visibleCards": [
+        "Acassia"
+      ],
+      "screenshot": "carousel_step_7.png"
+    },
+    {
+      "step": 8,
+      "action": "Click Next #8",
+      "visibleCards": [
+        "Acassia"
+      ],
+      "screenshot": "carousel_step_8.png"
+    },
+    {
+      "step": 9,
+      "action": "Click Next #9",
+      "visibleCards": [
+        "Arueira"
+      ],
+      "screenshot": "carousel_step_9.png"
+    },
+    {
+      "step": 10,
+      "action": "Click Next #10",
+      "visibleCards": [
+        "Vitória Régia"
+      ],
+      "screenshot": "carousel_step_10.png"
+    }
+  ],
+  "cardsFound": {
+    "Pau Brasil": true,
+    "Acassia": true,
+    "Arueira": true,
+    "Vitória Régia": true,
+    "Seringueira": true,
+    "Ipê": true,
+    "Amapazeiro": true
+  },
+  "issues": [
+    "⚠️ Card 6 (Ipê) está no DOM mas NÃO ficou visível durante a navegação"
+  ]
+}
